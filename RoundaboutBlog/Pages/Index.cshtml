@@ -1,0 +1,76 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-end">Blog Posts</h1>
+
+    @if (Model.Posts != null && Model.Posts.Any())
+    {
+        <div class="row">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h3 class="card-text mb-0">@post.Title</h3>
+                            <a class="btn btn-info" asp-page="/Post/Edit" asp-route-postId="@post.PostId">Edit</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="content-container">
+                                <p class="card-text content">@post.Content</p>
+                                <div class="d-flex justify-content-end">
+                                    <button class="toggle-btn btn btn-link p-0">Read more</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end text-muted">
+                            @post.CreatedAt.ToString("MMM dd, yyyy h:mm tt")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            No posts available yet.
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const containers = document.querySelectorAll('.content-container');
+
+            containers.forEach(container => {
+                const content = container.querySelector('.content');
+                const button = container.querySelector('.toggle-btn');
+
+                if (content.scrollHeight <= content.clientHeight) {
+                    button.style.display = 'none';
+                }
+                else
+                {
+                    button.addEventListener('click', function() {
+                        if (container.classList.toggle('expanded'))
+                        {
+                            button.innerHTML = "Show less";
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                        }
+                        else
+                        {
+                            button.innerHTML = "Read more";
+                            content.style.maxHeight = 'calc(1.5em * 4)'
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

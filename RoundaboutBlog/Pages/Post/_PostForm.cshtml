@@ -1,0 +1,16 @@
+﻿@model RoundaboutBlog.Dto.PostCreateDto
+
+<form method="post">
+    <div class="form-group">
+        <label class="form-label" asp-for="Title"></label>
+        <input class="form-control" asp-for="Title"></input>
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="Content"></label>
+        <textarea class="form-control" asp-for="Content" rows="7"></textarea>
+        <span class="text-danger" asp-validation-for="Content"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    <div class="text-danger mt-1" asp-validation-summary="All"></div>
+</form>

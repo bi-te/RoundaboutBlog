@@ -1,0 +1,15 @@
+﻿@page
+@model RoundaboutBlog.Pages.Post.AddModel
+
+@{
+    ViewData["Title"] = "Add Post";
+}
+
+<div class="container">
+    <dib class="row justify-content-center">
+        <h2 class="col-12 col-md-2 text-center">@ViewData["Title"]</h2>
+        <div class="col-8">
+             @await Html.PartialAsync("_PostForm", Model.Input)
+        </div>
+    </dib>
+</div>
