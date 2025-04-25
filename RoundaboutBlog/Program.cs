@@ -1,16 +1,31 @@
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RoundaboutBlog.Data;
 using RoundaboutBlog.Entities;
 using RoundaboutBlog.Services;
+using RoundaboutBlog.Settings;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+string? connectionString = builder.Configuration.GetConnectionString("dbConnection") ?? 
+                           throw new InvalidOperationException("Connection string 'dbConnection' not found.");
+builder.Services.AddDbContext<AppDbContext>(dbOpts => dbOpts.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.Configure<RouteOptions>(opts =>
 {
     opts.LowercaseUrls = true;
-    opts.LowercaseQueryStrings = true;
+    //opts.LowercaseQueryStrings = true;
     opts.AppendTrailingSlash = true;
 });
+
+builder.Services.AddDefaultIdentity<AppUser>(opts =>
+    {
+        opts.SignIn.RequireConfirmedAccount = true;
+        opts.User.RequireUniqueEmail = true;
+    })
+    .AddEntityFrameworkStores<AppDbContext>();
 
 var mvcBuilder = builder.Services.AddRazorPages();
 if (builder.Environment.IsDevelopment())
@@ -18,15 +33,11 @@ if (builder.Environment.IsDevelopment())
     mvcBuilder.AddRazorRuntimeCompilation();
 }
 
-string? connectionString = builder.Configuration.GetConnectionString("dbConnection");
-if (connectionString is null)
-{
-    throw new InvalidOperationException("Connection string 'dbConnection' not found.");
-}
-
-builder.Services.AddDbContext<AppDbContext>(dbOpts =>
-    dbOpts.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
 builder.Services.AddScoped<PostsService>();
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
+
 
 var app = builder.Build();
 
@@ -40,6 +51,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
