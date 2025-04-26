@@ -3,6 +3,7 @@
 #nullable disable
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -25,52 +26,60 @@ namespace RoundaboutBlog.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+        
         public string Username { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+        
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [DataType(DataType.Text)]
+            [StringLength(100)]
+            public string FirstName { get; set; }
+            
+            [DataType(DataType.Text)]
+            [StringLength(100)]
+            public string SecondName { get; set; }
+    
+            [DataType(DataType.Date)]
+            [DisplayName("Birth date")]
+            public DateOnly DateOfBirth { get; set; }
+    
+            [EnumDataType(typeof(Gender))]
+            public Gender Gender { get; set; }
+    
+            [DataType(DataType.Text)]
+            [StringLength(200)]
+            public string Address { get; set; }
+    
+            [StringLength(200)]
+            public string Website { get; set; }
+            
+            // [Phone]
+            // [Display(Name = "Phone number")]
+            // public string PhoneNumber { get; set; }
         }
 
         private async Task LoadAsync(AppUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                FirstName = user.FirstName,
+                SecondName = user.SecondName,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Address = user.Address,
+                Website = user.Website
+                //PhoneNumber = phoneNumber
             };
         }
 
@@ -100,20 +109,56 @@ namespace RoundaboutBlog.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
-
+            // var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            // if (Input.PhoneNumber != phoneNumber)
+            // {
+            //     var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            //     if (!setPhoneResult.Succeeded)
+            //     {
+            //         StatusMessage = "Unexpected error when trying to set phone number.";
+            //         return RedirectToPage();
+            //     }
+            // }
+            
+            UpdateUserFields(user);
+            
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
+        }
+        
+        private void UpdateUserFields(AppUser user)
+        {
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+
+            if (Input.SecondName != user.SecondName)
+            {
+                user.SecondName = Input.SecondName;
+            }
+
+            if (Input.DateOfBirth != user.DateOfBirth)
+            {
+                user.DateOfBirth = Input.DateOfBirth;
+            }
+
+            if (Input.Gender != user.Gender)
+            {
+                user.Gender = Input.Gender;
+            }
+
+            if (Input.Address != user.Address)
+            {
+                user.Address = Input.Address;
+            }
+
+            if (Input.Website != user.Website)
+            {
+                user.Website = Input.Website;
+            }
         }
     }
 }

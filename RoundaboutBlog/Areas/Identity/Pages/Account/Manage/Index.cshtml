@@ -15,6 +15,36 @@
                 <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
                 <label asp-for="Username" class="form-label"></label>
             </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FirstName" class="form-control" placeholder="Please enter your first name."/>
+                <label asp-for="Input.FirstName" class="form-label"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.SecondName" class="form-control" placeholder="Please enter your second name."/>
+                <label asp-for="Input.SecondName" class="form-label"></label>
+                <span asp-validation-for="Input.SecondName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.DateOfBirth" class="form-control"/>
+                <label asp-for="Input.DateOfBirth" class="form-label"></label>
+                <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select"></select>
+                <label asp-for="Input.Gender" class="form-label"></label>
+                <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Address" class="form-control" placeholder="Please enter your address."/>
+                <label asp-for="Input.Address" class="form-label"></label>
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Website" class="form-control" placeholder="Please enter your website."/>
+                <label asp-for="Input.Website" class="form-label"></label>
+                <span asp-validation-for="Input.Website" class="text-danger"></span>
+            </div>
             @* <div class="form-floating mb-3"> *@
             @*     <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/> *@
             @*     <label asp-for="Input.PhoneNumber" class="form-label"></label> *@
