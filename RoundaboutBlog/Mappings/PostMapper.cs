@@ -11,14 +11,16 @@ public static class PostMapper
     }
     
     //ViewDto
-    public static PostViewDto ToViewDto(this Post? post)
+    public static PostViewDto ToViewDto(this Post post)
     {
         return new PostViewDto
         {
             PostId = post.PostId, 
             Title = post.Title, 
             Content = post.Content, 
-            CreatedAt = post.CreatedAt
+            CreatedAt = post.CreatedAt,
+            AuthorId = post.UserId,
+            AuthorName = post.User?.UserName ?? ""
         };
     }
 }

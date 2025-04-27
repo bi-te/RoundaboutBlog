@@ -1,19 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Org.BouncyCastle.Bcpg;
 using RoundaboutBlog.Dto;
+using RoundaboutBlog.Entities;
 using RoundaboutBlog.Services;
 
 namespace RoundaboutBlog.Pages.Post;
 
+[Authorize]
 public class AddModel : PageModel
 {
-    private PostsService _postsService;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly PostsService _postsService;
     
     [BindProperty]
     public PostCreateDto Input { get; set; }
 
-    public AddModel(PostsService postsService)
+    public AddModel(UserManager<AppUser> userManager, PostsService postsService)
     {
+        _userManager = userManager;
         _postsService = postsService;
     }
     
@@ -29,7 +36,13 @@ public class AddModel : PageModel
             return Page();
         }
 
-        await _postsService.AddPostAsync(Input);
+        string? userId = _userManager.GetUserId(User);
+        if (userId is null)
+        {
+            return Unauthorized();
+        }
+        
+        await _postsService.AddPostAsync(userId, Input);
         return RedirectToPage("/Index");
     }
 }

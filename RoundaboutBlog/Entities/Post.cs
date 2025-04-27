@@ -12,4 +12,7 @@ public class Post
     
     public DateTime CreatedAt { get; set; }
     
+    public string UserId { get; set; }
+    
+    public AppUser? User { get; set; }
 }

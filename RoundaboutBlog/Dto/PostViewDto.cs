@@ -6,4 +6,9 @@ public class PostViewDto
     public string Title { get; set; }
     public string Content { get; set; }
     public DateTime CreatedAt { get; set; }
+    
+    
+    public string AuthorId { get; set; }
+    
+    public string AuthorName { get; set; }
 }

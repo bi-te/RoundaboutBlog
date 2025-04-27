@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RoundaboutBlog.Dto;
 using RoundaboutBlog.Services;
 
 namespace RoundaboutBlog.Pages.Post;
 
+[Authorize]
 public class EditModel : PageModel
 {
     private PostsService _postsService;

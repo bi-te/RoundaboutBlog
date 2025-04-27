@@ -13,30 +13,43 @@ public class PostsService(AppDbContext dbContext)
 
     public async Task<PostViewDto?> GetPostAsync(int postId)
     {
-        return (await _dbContext.Posts.Where(p => p!.PostId == postId).SingleOrDefaultAsync())?.ToViewDto();
+        return (await _dbContext.Posts.Where(p => p.PostId == postId)
+                                      .Include(p => p.User)
+                                      .SingleOrDefaultAsync()
+            )?.ToViewDto();
     }
 
     public async Task<ICollection<PostViewDto>> GetPostsAsync()
     {
-        return await _dbContext.Posts.Select(p => p.ToViewDto()).ToListAsync();
+        return await _dbContext.Posts.Include(p => p.User).Select(p => p.ToViewDto()).ToListAsync();
     }
     
-    public async Task<ICollection<PostViewDto>> GetPostsSortedAsync<TKey>(Expression<Func<Post?, TKey>> func, bool ascending = true)
+    public async Task<ICollection<PostViewDto>> GetPostsSortedAsync<TKey>(Expression<Func<Post, TKey>> func, bool ascending = true)
     {
         if (ascending)
         {
-            return await _dbContext.Posts.OrderBy(func).Select(p => p.ToViewDto()).ToListAsync();
+            return await _dbContext.Posts.OrderBy(func).Include(p => p.User)
+                                         .Select(p => p.ToViewDto()).ToListAsync();
         }
-        return await _dbContext.Posts.OrderByDescending(func).Select(p => p.ToViewDto()).ToListAsync();
+        return await _dbContext.Posts.OrderByDescending(func).Include(p => p.User)
+                                     .Select(p => p.ToViewDto()).ToListAsync();
     }
 
-    public async Task<PostViewDto> AddPostAsync(PostCreateDto createDto)
+    public async Task<PostViewDto?> AddPostAsync(string userId, PostCreateDto createDto)
     {
+        AppUser? user = await _dbContext.Users.FindAsync(userId);
+        if (user is null)
+        {
+            return null;
+        }
+        
         Post newPost = createDto.ToPost();
+        newPost.UserId = userId;
         
         var post = await _dbContext.AddAsync(newPost);
         await _dbContext.SaveChangesAsync();
 
+        post.Entity.User = user;
         return post.Entity.ToViewDto();
     }
 
@@ -46,7 +59,7 @@ public class PostsService(AppDbContext dbContext)
         
         if (existing is null)
         {
-            await AddPostAsync(updateDto);
+            //await AddPostAsync(TODO, updateDto);
             return;
         }
 
@@ -58,6 +71,6 @@ public class PostsService(AppDbContext dbContext)
 
     public async Task DeletePostAsync(int postId)
     {
-        await _dbContext.Posts.Where(p => p!.PostId == postId).ExecuteDeleteAsync();
+        await _dbContext.Posts.Where(p => p.PostId == postId).ExecuteDeleteAsync();
     }
 }

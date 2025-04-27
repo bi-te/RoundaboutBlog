@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RoundaboutBlog.Data;
@@ -11,9 +12,11 @@ using RoundaboutBlog.Data;
 namespace RoundaboutBlog.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250426224456_AddUserData")]
+    partial class AddUserData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,16 +326,8 @@ namespace RoundaboutBlog.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("user_id");
-
                     b.HasKey("PostId")
                         .HasName("pk_posts");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_posts_user_id");
 
                     b.ToTable("posts", (string)null);
                 });
@@ -392,18 +387,6 @@ namespace RoundaboutBlog.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_tokens_asp_net_users_user_id");
-                });
-
-            modelBuilder.Entity("RoundaboutBlog.Entities.Post", b =>
-                {
-                    b.HasOne("RoundaboutBlog.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_posts_users_user_id");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
