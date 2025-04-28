@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿#nullable disable
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,7 +38,7 @@ public class AddModel : PageModel
             return Page();
         }
 
-        string? userId = _userManager.GetUserId(User);
+        string userId = _userManager.GetUserId(User);
         if (userId is null)
         {
             return Unauthorized();

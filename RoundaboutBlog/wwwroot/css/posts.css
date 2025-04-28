@@ -1,18 +1,19 @@
-.content-container {
+.post-container {
     position: relative;
 }
 
-.content {
+.post-content {
     white-space: pre-wrap;
     overflow: hidden;
     max-height: calc(1.5em * 4);
     transition: max-height 0.5s ease, opacity 0.5s ease;
 }
 
-.expanded .content {
+.post-expanded .post-content {
     max-height: 2000px;
 }
 
 .toggle-btn {
     display: inline-block;
 }
+

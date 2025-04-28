@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RoundaboutBlog.Data;
 using RoundaboutBlog.Entities;
 using RoundaboutBlog.Services;
 using RoundaboutBlog.Settings;
-using Microsoft.AspNetCore.Identity;
+using RoundaboutBlog.Authorization.Handlers;
+using RoundaboutBlog.Authorization.Requirements;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,11 +35,17 @@ if (builder.Environment.IsDevelopment())
     mvcBuilder.AddRazorRuntimeCompilation();
 }
 
+builder.Services.AddAuthorization(opts =>
+{
+    opts.AddPolicy("PostOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsPostOwnerRequirement()));
+});
+
 builder.Services.AddScoped<PostsService>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
 
+builder.Services.AddScoped<IAuthorizationHandler, IsPostOwnerHandler>();
 
 var app = builder.Build();
 

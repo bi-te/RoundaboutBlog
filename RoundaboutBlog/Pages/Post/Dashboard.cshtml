@@ -1,0 +1,55 @@
+﻿@page
+@model DashboardModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between mb-3">
+            <h2>@Model.Username</h2>
+            <a class="btn btn-primary align-content-center" asp-page="/Post/Add">Add Post</a>
+        </div>
+    </div>
+    @if (Model.Posts is not null && Model.Posts.Any())
+    {
+        <div class="row">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="col-6 mb-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <a class="text-decoration-none text-dark" asp-page="/Post/Index" asp-route-pageId="@post.PostId">
+                                <h3 class="card-text mb-0">@post.Title</h3>
+                            </a>
+                            <a class="btn btn-info" asp-page="/Post/Edit" asp-route-postId="@post.PostId">Edit</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="post-container">
+                                <p class="card-text post-content">@post.Content</p>
+                                <div class="d-flex justify-content-end">
+                                    <a class="toggle-btn btn btn-link p-0"
+                                       asp-page="/Post/Index" asp-route-postId="@post.PostId">
+                                        View post
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end text-muted">
+                            @post.CreatedAt.ToString("MMM dd, yyyy h:mm tt")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            You haven't posted yet
+        </div>
+    }
+</div>
+

@@ -7,7 +7,7 @@ public static class PostMapper
 {
     public static Post ToPost(this PostCreateDto dto)
     {
-        return new Post{ Title = dto.Title, Content = dto.Content };
+        return new Post{ Title = dto.Title, Content = dto.Content};
     }
     
     //ViewDto
@@ -19,8 +19,19 @@ public static class PostMapper
             Title = post.Title, 
             Content = post.Content, 
             CreatedAt = post.CreatedAt,
-            AuthorId = post.UserId,
+            AuthorId = post.UserId!,
             AuthorName = post.User?.UserName ?? ""
+        };
+    }
+
+    public static Post ToPost(this PostViewDto dto)
+    {
+        return new Post()
+        {
+            PostId = dto.PostId, 
+            Title = dto.Title,
+            Content = dto.Content,
+            UserId = dto.AuthorId
         };
     }
 }

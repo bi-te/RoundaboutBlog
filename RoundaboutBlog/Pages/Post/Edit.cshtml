@@ -1,5 +1,5 @@
 ﻿@page "{postId:int}"
-@model RoundaboutBlog.Pages.Post.EditModel
+@model EditModel
 
 @{
     ViewData["Title"] = "Edit Post";
@@ -16,7 +16,7 @@
                     Delete
                 </button>
             </form>
-            <a class="btn btn-info mt-3" asp-page="/Index">Ok</a>
+            <a class="btn btn-info mt-3" asp-page="/Post/Dashboard">Ok</a>
         </div>
     </dib>
 </div>

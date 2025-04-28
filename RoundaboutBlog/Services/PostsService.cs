@@ -7,10 +7,22 @@ using RoundaboutBlog.Mappings;
 
 namespace RoundaboutBlog.Services;
 
-public class PostsService(AppDbContext dbContext)
+public class PostsService
 {
-    private readonly AppDbContext _dbContext = dbContext;
+    private readonly AppDbContext _dbContext;
 
+    public PostsService(AppDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+ 
+    public async Task<Post?> GetPostEntityAsync(int postId)
+    {
+        return await _dbContext.Posts.Where(p => p.PostId == postId)
+                .Include(p => p.User)
+                .SingleOrDefaultAsync();
+    }
+    
     public async Task<PostViewDto?> GetPostAsync(int postId)
     {
         return (await _dbContext.Posts.Where(p => p.PostId == postId)
@@ -33,6 +45,15 @@ public class PostsService(AppDbContext dbContext)
         }
         return await _dbContext.Posts.OrderByDescending(func).Include(p => p.User)
                                      .Select(p => p.ToViewDto()).ToListAsync();
+    }
+
+    public async Task<ICollection<PostViewDto>> GetPostsByAuthorAsync(string authorId)
+    {
+        return await _dbContext.Posts.Where(p => p.UserId == authorId)
+                                     .Include(p => p.User)
+                                     .OrderByDescending(p=>p.CreatedAt)
+                                     .Select(p => p.ToViewDto())
+                                     .ToListAsync();
     }
 
     public async Task<PostViewDto?> AddPostAsync(string userId, PostCreateDto createDto)
