@@ -14,6 +14,13 @@
         <h1 class="mb-4 text-end">Blog Posts</h1>
     }
 
+    @if (Model.StatusMessage is not null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     @if (Model.Posts != null && Model.Posts.Any())
     {
         <div class="row">

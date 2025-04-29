@@ -37,7 +37,9 @@ namespace RoundaboutBlog.Areas.Identity.Pages.Account
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public string ReturnUrl { get; set; }
-
+        
+        public string AuthorizeMessage { get; set; }
+        
         [TempData]
         public string ErrorMessage { get; set; }
 
@@ -60,6 +62,11 @@ namespace RoundaboutBlog.Areas.Identity.Pages.Account
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+
+            if (returnUrl is not null)
+            {
+                AuthorizeMessage = "Error. You must be logged in first";
             }
 
             returnUrl ??= Url.Content("~/");

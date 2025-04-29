@@ -24,7 +24,7 @@ builder.Services.Configure<RouteOptions>(opts =>
 
 builder.Services.AddDefaultIdentity<AppUser>(opts =>
     {
-        opts.SignIn.RequireConfirmedAccount = true;
+        opts.SignIn.RequireConfirmedAccount = false;
         opts.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<AppDbContext>();

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,6 +8,7 @@ using RoundaboutBlog.Services;
 
 namespace RoundaboutBlog.Pages;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly UserManager<AppUser> _userManager;
@@ -14,6 +16,9 @@ public class IndexModel : PageModel
 
     public string? Username;
     public ICollection<PostViewDto>? Posts;
+    
+    [TempData]
+    public string? StatusMessage { get; set; }
     
     public IndexModel(PostsService postsService, UserManager<AppUser> userManager)
     {

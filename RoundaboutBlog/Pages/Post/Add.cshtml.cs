@@ -20,6 +20,9 @@ public class AddModel : PageModel
     [BindProperty]
     public PostCreateDto Input { get; set; }
 
+    [TempData]
+    public string StatusMessage { get; set; }
+    
     public AddModel(UserManager<AppUser> userManager, PostsService postsService)
     {
         _userManager = userManager;
@@ -45,6 +48,7 @@ public class AddModel : PageModel
         }
         
         await _postsService.AddPostAsync(userId, Input);
+        StatusMessage = "Post created successfully";
         return RedirectToPage("/Index");
     }
 }

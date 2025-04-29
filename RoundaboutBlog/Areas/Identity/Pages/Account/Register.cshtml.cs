@@ -48,6 +48,9 @@ namespace RoundaboutBlog.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
+        
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -115,11 +118,10 @@ namespace RoundaboutBlog.Areas.Identity.Pages.Account
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    
+                    StatusMessage = "Your registration has been successful";
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {
