@@ -38,14 +38,17 @@ if (builder.Environment.IsDevelopment())
 builder.Services.AddAuthorization(opts =>
 {
     opts.AddPolicy("PostOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsPostOwnerRequirement()));
+    opts.AddPolicy("CommentOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsCommentOwnerRequirement()));
 });
 
 builder.Services.AddScoped<PostsService>();
+builder.Services.AddScoped<CommentsService>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
 
 builder.Services.AddScoped<IAuthorizationHandler, IsPostOwnerHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, IsCommentOwnerHandler>();
 
 var app = builder.Build();
 

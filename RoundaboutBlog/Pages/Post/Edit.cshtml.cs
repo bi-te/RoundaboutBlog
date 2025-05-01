@@ -75,6 +75,12 @@ public class EditModel : PageModel
     
     public async Task<IActionResult> OnPostDeleteAsync(int postId)
     {
+        AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
+        if (!result.Succeeded)
+        {
+            return Forbid();
+        }
+        
         await _postsService.DeletePostAsync(postId);
         return RedirectToPage("/Index");
     }

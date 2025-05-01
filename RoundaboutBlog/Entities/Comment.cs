@@ -1,23 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RoundaboutBlog.Entities;
 
-public class Post
+public class Comment
 {
-    public int PostId { get; set; }
+    public int CommentId { get; set; }
     
     [StringLength(200)]
     public required string Title { get; set; }
     
-    [StringLength(5000)]
+    [StringLength(2000)]
     public required string Content { get; set; }
     
     public DateTime CreatedAt { get; set; }
     
+    
     public string? UserId { get; set; }
     
     public AppUser? User { get; set; }
-
-    public ICollection<Comment> Comments { get; } = new List<Comment>();
+    
+    public int PostId { get; set; }
+    
+    public Post? Post { get; set; }
+    
 }
