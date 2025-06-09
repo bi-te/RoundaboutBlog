@@ -6,7 +6,7 @@ namespace RoundaboutBlog.Mappings;
 public static class CommentMapper
 {
     // CreateDto
-    public static Comment ToComment(this CommentCreateDto dto)
+    public static Comment ToComment(this CommentCreateDto? dto)
     {
         return new Comment()
         {

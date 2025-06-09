@@ -41,8 +41,8 @@ builder.Services.AddAuthorization(opts =>
     opts.AddPolicy("CommentOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsCommentOwnerRequirement()));
 });
 
-builder.Services.AddScoped<PostsService>();
-builder.Services.AddScoped<CommentsService>();
+builder.Services.AddScoped<IPostsService, PostsService>();
+builder.Services.AddScoped<ICommentsService, CommentsService>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));

@@ -15,7 +15,7 @@ namespace RoundaboutBlog.Pages.Post;
 public class AddModel : PageModel
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly PostsService _postsService;
+    private readonly IPostsService _postsService;
     
     [BindProperty]
     public PostCreateDto Input { get; set; }
@@ -23,7 +23,7 @@ public class AddModel : PageModel
     [TempData]
     public string StatusMessage { get; set; }
     
-    public AddModel(UserManager<AppUser> userManager, PostsService postsService)
+    public AddModel(UserManager<AppUser> userManager, IPostsService postsService)
     {
         _userManager = userManager;
         _postsService = postsService;

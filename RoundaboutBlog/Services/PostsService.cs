@@ -7,20 +7,24 @@ using RoundaboutBlog.Mappings;
 
 namespace RoundaboutBlog.Services;
 
-public class PostsService
+public interface IPostsService
+{
+    Task<PostViewDto?> GetPostAsync(int postId);
+    Task<ICollection<PostViewDto>> GetPostsAsync();
+    Task<ICollection<PostViewDto>> GetPostsSortedAsync<TKey>(Expression<Func<Post, TKey>> func, bool ascending = true);
+    Task<ICollection<PostViewDto>> GetPostsByAuthorAsync(string authorId);
+    Task<PostViewDto?> AddPostAsync(string userId, PostCreateDto createDto);
+    Task UpdatePostAsync(int postId, PostCreateDto updateDto);
+    Task DeletePostAsync(int postId);
+}
+
+public class PostsService: IPostsService
 {
     private readonly AppDbContext _dbContext;
 
     public PostsService(AppDbContext dbContext)
     {
         _dbContext = dbContext;
-    }
- 
-    public async Task<Post?> GetPostEntityAsync(int postId)
-    {
-        return await _dbContext.Posts.Where(p => p.PostId == postId)
-                .Include(p => p.User)
-                .SingleOrDefaultAsync();
     }
     
     public async Task<PostViewDto?> GetPostAsync(int postId)

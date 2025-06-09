@@ -20,9 +20,17 @@ public class AppDbContext: IdentityDbContext<AppUser>
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.Entity<Post>().Property(p => p.PostId).UseIdentityAlwaysColumn();
-        modelBuilder.Entity<Post>().Property(p => p.CreatedAt).HasDefaultValueSql("now()");
-        
         modelBuilder.Entity<Comment>().Property(c => c.CommentId).UseIdentityAlwaysColumn();
-        modelBuilder.Entity<Comment>().Property(c => c.CreatedAt).HasDefaultValueSql("now()");
+
+        if (Database.IsNpgsql())
+        {
+            modelBuilder.Entity<Post>().Property(p => p.CreatedAt).HasDefaultValueSql("now()");
+            modelBuilder.Entity<Comment>().Property(c => c.CreatedAt).HasDefaultValueSql("now()");
+        }
+        else if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+        {
+            modelBuilder.Entity<Post>().Property(p => p.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            modelBuilder.Entity<Comment>().Property(c => c.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        }
     }
 }

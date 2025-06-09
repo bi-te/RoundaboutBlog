@@ -4,3 +4,8 @@
 /RoundaboutBlog/obj/
 /RoundaboutBlog/Properties/launchSettings.json
 /RoundaboutBlog/ScaffoldingReadMe.txt
+
+/RoundaboutTests/bin/
+/RoundaboutTests/obj/
+/RoundaboutTests/Properties/launchSettings.json
+/RoundaboutTests/ScaffoldingReadMe.txt

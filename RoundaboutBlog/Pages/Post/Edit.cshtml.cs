@@ -13,7 +13,7 @@ namespace RoundaboutBlog.Pages.Post;
 public class EditModel : PageModel
 {
     private readonly IAuthorizationService _authorizationService;
-    private readonly PostsService _postsService;
+    private readonly IPostsService _postsService;
     
     [BindProperty]
     public PostCreateDto Input { get; set; }
@@ -22,7 +22,7 @@ public class EditModel : PageModel
     
     public int Id { get; set; }
 
-    public EditModel(PostsService postsService, IAuthorizationService authorizationService)
+    public EditModel(IPostsService postsService, IAuthorizationService authorizationService)
     {
         _postsService = postsService;
         _authorizationService = authorizationService;

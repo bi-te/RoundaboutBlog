@@ -12,7 +12,7 @@ namespace RoundaboutBlog.Pages;
 public class IndexModel : PageModel
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly PostsService _postsService;
+    private readonly IPostsService _postsService;
 
     public string? Username;
     public ICollection<PostViewDto>? Posts;
@@ -20,7 +20,7 @@ public class IndexModel : PageModel
     [TempData]
     public string? StatusMessage { get; set; }
     
-    public IndexModel(PostsService postsService, UserManager<AppUser> userManager)
+    public IndexModel(IPostsService postsService, UserManager<AppUser> userManager)
     {
         _postsService = postsService;
         _userManager = userManager;
