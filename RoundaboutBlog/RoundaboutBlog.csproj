@@ -6,8 +6,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>RoundaboutBlog</RootNamespace>
         <UserSecretsId>d214ac43-1c39-4945-9495-a07ae5d3daf0</UserSecretsId>
+        <Configurations>Debug;Release;Test</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
-
+    
     <ItemGroup>
       <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
       <PackageReference Include="MailKit" Version="4.11.0" />

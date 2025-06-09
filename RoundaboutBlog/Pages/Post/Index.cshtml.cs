@@ -13,8 +13,8 @@ namespace RoundaboutBlog.Pages.Post;
 public class IndexModel : PageModel
 {
     private readonly IAuthorizationService _authorizationService;
-    private readonly PostsService _postsService;
-    private readonly CommentsService _commentsService;
+    private readonly IPostsService _postsService;
+    private readonly ICommentsService _commentsService;
     
     public PostViewDto? Post { get; set; }
     
@@ -28,7 +28,7 @@ public class IndexModel : PageModel
     [BindProperty]
     public CommentCreateDto Input { get; set; }
 
-    public IndexModel(PostsService postsService, IAuthorizationService authorizationService, CommentsService commentsService)
+    public IndexModel(IPostsService postsService, IAuthorizationService authorizationService, ICommentsService commentsService)
     {
         _postsService = postsService;
         _authorizationService = authorizationService;

@@ -6,7 +6,17 @@ using RoundaboutBlog.Mappings;
 
 namespace RoundaboutBlog.Services;
 
-public class CommentsService
+public interface ICommentsService
+{
+    Task<Comment?> GetCommentEntityAsync(int id);
+    Task<CommentViewDto?> GetCommentAsync(int id);
+    Task<ICollection<CommentViewDto>> GetPostCommentsAsync(int postId);
+    Task<CommentViewDto?> AddComment(string userId, int postId, CommentCreateDto dto);
+    Task UpdateCommentAsync(int id, CommentCreateDto updateDto);
+    Task DeleteCommentAsync(int id);
+}
+
+public class CommentsService: ICommentsService
 {
     private readonly AppDbContext _dbContext;
 

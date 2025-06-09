@@ -12,12 +12,12 @@ namespace RoundaboutBlog.Pages.Post;
 public class DashboardModel : PageModel
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly PostsService _postsService;
+    private readonly IPostsService _postsService;
 
     public string? Username;
     public ICollection<PostViewDto>? Posts;
     
-    public DashboardModel(PostsService postsService, UserManager<AppUser> userManager)
+    public DashboardModel(IPostsService postsService, UserManager<AppUser> userManager)
     {
         _userManager = userManager;
         _postsService = postsService;
