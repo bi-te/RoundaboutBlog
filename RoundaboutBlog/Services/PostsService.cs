@@ -29,7 +29,7 @@ public class PostsService: IPostsService
     
     public async Task<PostViewDto?> GetPostAsync(int postId)
     {
-        return (await _dbContext.Posts.Where(p => p.PostId == postId)
+        return (await _dbContext.Posts.Where(p => p.PostId == (postId - 1))
                                       .Include(p => p.User)
                                       .SingleOrDefaultAsync()
             )?.ToViewDto();
