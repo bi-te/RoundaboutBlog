@@ -11,29 +11,29 @@ namespace RoundaboutBlog.Pages.Post;
 [Authorize]
 public class DashboardModel : PageModel
 {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly IPostsService _postsService;
+  private readonly UserManager<AppUser> _userManager;
+  private readonly IPostsService _postsService;
 
-    public string? Username;
-    public ICollection<PostViewDto>? Posts;
-    
-    public DashboardModel(IPostsService postsService, UserManager<AppUser> userManager)
+  public string? Username;
+  public ICollection<PostViewDto>? Posts;
+
+  public DashboardModel(IPostsService postsService, UserManager<AppUser> userManager)
+  {
+    _userManager = userManager;
+    _postsService = postsService;
+  }
+
+  public async Task<IActionResult> OnGetAsync()
+  {
+    AppUser? user = await _userManager.GetUserAsync(User);
+    if ( user is null )
     {
-        _userManager = userManager;
-        _postsService = postsService;
+      return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
     }
-    
-    public async Task<IActionResult> OnGetAsync()
-    {
-        AppUser? user = await _userManager.GetUserAsync(User);
-        if (user is null)
-        {
-            return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-        }
 
-        Username = user.UserName;
-        Posts = await _postsService.GetPostsByAuthorAsync(user.Id);
+    Username = user.UserName;
+    Posts = await _postsService.GetPostsByAuthorAsync(user.Id);
 
-        return Page();
-    }
+    return Page();
+  }
 }

@@ -2,6 +2,6 @@
 
 namespace RoundaboutBlog.Authorization.Requirements;
 
-public class IsCommentOwnerRequirement: IAuthorizationRequirement
+public class IsCommentOwnerRequirement : IAuthorizationRequirement
 {
 }

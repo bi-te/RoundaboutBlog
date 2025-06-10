@@ -5,39 +5,39 @@ namespace RoundaboutBlog.Mappings;
 
 public static class CommentMapper
 {
-    // CreateDto
-    public static Comment ToComment(this CommentCreateDto? dto)
+  // CreateDto
+  public static Comment ToComment(this CommentCreateDto? dto)
+  {
+    return new Comment()
     {
-        return new Comment()
-        {
-            Title = dto.Title,
-            Content = dto.Content,
-        };
-    }
+      Title = dto.Title,
+      Content = dto.Content,
+    };
+  }
 
-    // ViewDto
-    public static CommentViewDto ToViewDto(this Comment comment)
+  // ViewDto
+  public static CommentViewDto ToViewDto(this Comment comment)
+  {
+    return new CommentViewDto
     {
-        return new CommentViewDto
-        {
-            CommentId = comment.CommentId,
-            Title = comment.Title,
-            Content = comment.Content,
-            CreatedAt = comment.CreatedAt,
-            AuthorId = comment.UserId!,
-            Author = comment.User?.UserName ?? String.Empty
-        };
-    }
+      CommentId = comment.CommentId,
+      Title = comment.Title,
+      Content = comment.Content,
+      CreatedAt = comment.CreatedAt,
+      AuthorId = comment.UserId!,
+      Author = comment.User?.UserName ?? String.Empty
+    };
+  }
 
-    public static Comment ToComment(this CommentViewDto dto)
+  public static Comment ToComment(this CommentViewDto dto)
+  {
+    return new Comment()
     {
-        return new Comment()
-        {
-            CommentId = dto.CommentId,
-            Title = dto.Title,
-            Content = dto.Content,
-            CreatedAt = dto.CreatedAt,
-            UserId = dto.AuthorId
-        };
-    }
+      CommentId = dto.CommentId,
+      Title = dto.Title,
+      Content = dto.Content,
+      CreatedAt = dto.CreatedAt,
+      UserId = dto.AuthorId
+    };
+  }
 }

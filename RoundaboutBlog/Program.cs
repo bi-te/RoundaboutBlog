@@ -10,35 +10,35 @@ using RoundaboutBlog.Authorization.Requirements;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string? connectionString = builder.Configuration.GetConnectionString("dbConnection") ?? 
+string? connectionString = builder.Configuration.GetConnectionString("dbConnection") ??
                            throw new InvalidOperationException("Connection string 'dbConnection' not found.");
 builder.Services.AddDbContext<AppDbContext>(dbOpts => dbOpts.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.Configure<RouteOptions>(opts =>
 {
-    opts.LowercaseUrls = true;
-    //opts.LowercaseQueryStrings = true;
-    opts.AppendTrailingSlash = true;
+  opts.LowercaseUrls = true;
+  //opts.LowercaseQueryStrings = true;
+  opts.AppendTrailingSlash = true;
 });
 
 builder.Services.AddDefaultIdentity<AppUser>(opts =>
     {
-        opts.SignIn.RequireConfirmedAccount = false;
-        opts.User.RequireUniqueEmail = true;
+      opts.SignIn.RequireConfirmedAccount = false;
+      opts.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<AppDbContext>();
 
 var mvcBuilder = builder.Services.AddRazorPages();
-if (builder.Environment.IsDevelopment())
+if ( builder.Environment.IsDevelopment() )
 {
-    mvcBuilder.AddRazorRuntimeCompilation();
+  mvcBuilder.AddRazorRuntimeCompilation();
 }
 
 builder.Services.AddAuthorization(opts =>
 {
-    opts.AddPolicy("PostOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsPostOwnerRequirement()));
-    opts.AddPolicy("CommentOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsCommentOwnerRequirement()));
+  opts.AddPolicy("PostOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsPostOwnerRequirement()));
+  opts.AddPolicy("CommentOwnerPolicy", policyBuilder => policyBuilder.AddRequirements(new IsCommentOwnerRequirement()));
 });
 
 builder.Services.AddScoped<IPostsService, PostsService>();
@@ -52,10 +52,10 @@ builder.Services.AddScoped<IAuthorizationHandler, IsCommentOwnerHandler>();
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment()) 
+if ( !app.Environment.IsDevelopment() )
 {
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+  app.UseExceptionHandler("/Error");
+  app.UseHsts();
 }
 
 app.UseHttpsRedirection();

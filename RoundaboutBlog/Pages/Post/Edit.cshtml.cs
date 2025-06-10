@@ -12,76 +12,76 @@ namespace RoundaboutBlog.Pages.Post;
 [Authorize]
 public class EditModel : PageModel
 {
-    private readonly IAuthorizationService _authorizationService;
-    private readonly IPostsService _postsService;
-    
-    [BindProperty]
-    public PostCreateDto Input { get; set; }
-    
-    public PostViewDto Post { get; set; }
-    
-    public int Id { get; set; }
+  private readonly IAuthorizationService _authorizationService;
+  private readonly IPostsService _postsService;
 
-    public EditModel(IPostsService postsService, IAuthorizationService authorizationService)
-    {
-        _postsService = postsService;
-        _authorizationService = authorizationService;
-    }
-    
-    public async Task<IActionResult> OnGetAsync(int postId)
-    {
-        Id = postId;
-        Post = await _postsService.GetPostAsync(postId);
-        if (Post is null)
-        {
-            return NotFound();
-        }
+  [BindProperty]
+  public PostCreateDto Input { get; set; }
 
-        AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
-        if (!result.Succeeded)
-        {
-            return Forbid();
-        }
+  public PostViewDto Post { get; set; }
 
-        Input = new PostCreateDto{ Title = Post.Title, Content = Post.Content };
-        return Page();
-    }
-    
-    public async Task<IActionResult> OnPostAsync(int postId)
+  public int Id { get; set; }
+
+  public EditModel(IPostsService postsService, IAuthorizationService authorizationService)
+  {
+    _postsService = postsService;
+    _authorizationService = authorizationService;
+  }
+
+  public async Task<IActionResult> OnGetAsync(int postId)
+  {
+    Id = postId;
+    Post = await _postsService.GetPostAsync(postId);
+    if ( Post is null )
     {
-        Id = postId;
-        Post = await _postsService.GetPostAsync(postId);
-        if (Post is null)
-        {
-            return NotFound();
-        }
-        
-        AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
-        if (!result.Succeeded)
-        {
-            return Forbid();
-        }
-        
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
-    
-        await _postsService.UpdatePostAsync(postId, Input);
-        
-        Post = await _postsService.GetPostAsync(postId);
-        return Page();
+      return NotFound();
     }
-    
-    public async Task<IActionResult> OnPostDeleteAsync(int postId)
+
+    AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
+    if ( !result.Succeeded )
     {
-        AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
-        if (!result.Succeeded)
-        {
-            return Forbid();
-        }
-        
-        await _postsService.DeletePostAsync(postId);
-        return RedirectToPage("/Index");
+      return Forbid();
     }
+
+    Input = new PostCreateDto { Title = Post.Title, Content = Post.Content };
+    return Page();
+  }
+
+  public async Task<IActionResult> OnPostAsync(int postId)
+  {
+    Id = postId;
+    Post = await _postsService.GetPostAsync(postId);
+    if ( Post is null )
+    {
+      return NotFound();
+    }
+
+    AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
+    if ( !result.Succeeded )
+    {
+      return Forbid();
+    }
+
+    if ( !ModelState.IsValid )
+    {
+      return Page();
+    }
+
+    await _postsService.UpdatePostAsync(postId, Input);
+
+    Post = await _postsService.GetPostAsync(postId);
+    return Page();
+  }
+
+  public async Task<IActionResult> OnPostDeleteAsync(int postId)
+  {
+    AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
+    if ( !result.Succeeded )
+    {
+      return Forbid();
+    }
+
+    await _postsService.DeletePostAsync(postId);
+    return RedirectToPage("/Index");
+  }
 }
