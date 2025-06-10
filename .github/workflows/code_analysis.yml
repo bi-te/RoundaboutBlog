@@ -27,7 +27,7 @@ jobs:
           output: inspectcode-result.xml 
 
       - name: Upload InspectCode Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: inspectcode-report
           path: inspectcode-result.xml
