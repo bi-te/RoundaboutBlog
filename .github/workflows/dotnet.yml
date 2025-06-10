@@ -1,8 +1,7 @@
-name: .NET
+name: .NET Roundabout
 
 on:
   push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
