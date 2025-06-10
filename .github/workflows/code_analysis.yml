@@ -7,8 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          submodules: recursive
+          dotnet-version: 9.0.x
+      - name: Display dotnet version
+        run: dotnet --version
 
       - name: Annotate
         # You may pin to the exact commit or the version.
