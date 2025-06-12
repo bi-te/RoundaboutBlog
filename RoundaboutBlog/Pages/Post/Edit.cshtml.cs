@@ -81,7 +81,7 @@ public class EditModel : PageModel
     {
       return NotFound();
     }
-    
+
     AuthorizationResult result = await _authorizationService.AuthorizeAsync(User, Post.ToPost(), "PostOwnerPolicy");
     if ( !result.Succeeded )
     {
