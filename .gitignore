@@ -1,11 +1,8 @@
 ﻿/.idea/
 
-/RoundaboutBlog/bin/
-/RoundaboutBlog/obj/
-/RoundaboutBlog/Properties/launchSettings.json
-/RoundaboutBlog/ScaffoldingReadMe.txt
+*/bin/
+*/obj/
+*/ScaffoldingReadMe.txt
+**/launchSettings.json
 
-/RoundaboutTests/bin/
-/RoundaboutTests/obj/
-/RoundaboutTests/Properties/launchSettings.json
-/RoundaboutTests/ScaffoldingReadMe.txt
+**/.playwright

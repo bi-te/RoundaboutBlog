@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundaboutBlog", "Roundabou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundaboutTests", "RoundaboutTests\RoundaboutTests.csproj", "{ECC0DD36-BFE4-4170-A2C0-D3B91A70E122}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundaboutWebTests", "RoundaboutWebTests\RoundaboutWebTests.csproj", "{04B96B8C-E403-463E-A7A4-F0039BCDEA06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{ECC0DD36-BFE4-4170-A2C0-D3B91A70E122}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECC0DD36-BFE4-4170-A2C0-D3B91A70E122}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECC0DD36-BFE4-4170-A2C0-D3B91A70E122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B96B8C-E403-463E-A7A4-F0039BCDEA06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B96B8C-E403-463E-A7A4-F0039BCDEA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B96B8C-E403-463E-A7A4-F0039BCDEA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B96B8C-E403-463E-A7A4-F0039BCDEA06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
