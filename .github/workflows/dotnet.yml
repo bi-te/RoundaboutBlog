@@ -24,6 +24,7 @@ jobs:
 
     env:
       ConnectionStrings__dbConnection: "Host=localhost;Port=5432;Database=roundabout_db;Username=roundabout_db;Password=roundabout_password"
+      HEADED: 1
 
     steps:
     - uses: actions/checkout@v4

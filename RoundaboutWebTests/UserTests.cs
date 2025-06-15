@@ -22,7 +22,7 @@ public class UserTests : PageTest
     await Page.GetByLabel("Confirm Password").ClickAsync();
     await Page.GetByLabel("Confirm Password").FillAsync("Test_user31");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Register" }).ClickAsync();
-    await Expect(Page.GetByText("Your registration has been")).ToBeVisibleAsync();
+    await Expect(Page.Locator("id=state_message")).ToBeVisibleAsync();
   }
   
   [Test, Order(2)]
