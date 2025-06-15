@@ -41,6 +41,8 @@ jobs:
       run: dotnet tool install --global dotnet-ef
     - name: Create db
       run: dotnet ef database update --project ./RoundaboutBlog
+    - name: Run app
+      run: dotnet run --no-restore --no-build --project ./RoundaboutBlog/RoundaboutBlog.csproj &
     - name: Ensure browsers are installed
       run: pwsh ./RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Test
