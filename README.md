@@ -23,7 +23,7 @@
 ##### **How to launch**
 1. clone repository
 2. launch postgres database
-3. run dotnet user-secrets init in project directory
+3. run `dotnet user-secrets init` in project directory
 4. add database connect string to user-secrets named `dbConnection`
 5. add smtp section settings to user-secrets in the following form:
 ```
@@ -37,5 +37,5 @@
 		"Company": ""  
 	}
 ```
-6. run `dotnet ef database update` in project directory
-7. run `dotnet run`
+7. run `dotnet ef database update --project ./RoundaboutBlog` in project directory 
+8. run `dotnet run`
