@@ -44,8 +44,15 @@ builder.Services.AddAuthorization(opts =>
 builder.Services.AddScoped<IPostsService, PostsService>();
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 
-builder.Services.AddTransient<IEmailSender, EmailSender>();
-builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
+if ( builder.Configuration["EMAIL"] == "1" )
+{
+  builder.Services.AddTransient<IEmailSender, EmailSender>(); 
+  builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
+}
+else
+{
+  builder.Services.AddSingleton<IEmailSender, DummyEmailSender>();
+}
 
 builder.Services.AddScoped<IAuthorizationHandler, IsPostOwnerHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, IsCommentOwnerHandler>();
