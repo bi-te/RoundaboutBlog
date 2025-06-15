@@ -42,7 +42,7 @@ jobs:
     - name: Create db
       run: dotnet ef database update --project ./RoundaboutBlog
     - name: Ensure browsers are installed
-      run: pwsh .//RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
+      run: pwsh /RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Test
       run: dotnet test --no-build --verbosity minimal
     - name: Run code style analysis
