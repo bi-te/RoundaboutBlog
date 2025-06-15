@@ -37,6 +37,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Install ef cli tool
+      run: dotnet tool install --global dotnet-ef
     - name: Create db
       run: dotnet ef database update
     - name: Run app
