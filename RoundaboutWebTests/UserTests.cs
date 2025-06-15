@@ -22,7 +22,15 @@ public class UserTests : PageTest
     await Page.GetByLabel("Confirm Password").ClickAsync();
     await Page.GetByLabel("Confirm Password").FillAsync("Test_user31");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Register" }).ClickAsync();
-    await Expect(Page.GetByText("Your registration has been")).ToBeVisibleAsync();
+    try
+    {
+      await Expect(Page.GetByText("Your registration has been")).ToBeVisibleAsync(); 
+    }
+    catch ( Exception e )
+    {
+      await Page.ScreenshotAsync(new() { Path = "screenshots/registration_error.png" });
+      throw;
+    }
   }
   
   [Test, Order(2)]

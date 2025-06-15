@@ -50,4 +50,10 @@ jobs:
       run: xvfb-run dotnet test --no-build --verbosity minimal
     - name: Run code style analysis
       run: dotnet format --verify-no-changes --severity warn --verbosity diagnostic
-    
+      
+    - name: Upload Playwright failure screenshots
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: failure-screenshots
+        path: ./screenshots/
