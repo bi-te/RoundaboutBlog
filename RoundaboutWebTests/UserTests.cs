@@ -25,6 +25,7 @@ public class UserTests : PageTest
     try
     {
       await Expect(Page.GetByText("Your registration has been")).ToBeVisibleAsync();
+      await Page.ScreenshotAsync(new() { Path = "screenshots/registration_success.png" });
     }
     catch ( Exception e )
     {
@@ -43,7 +44,16 @@ public class UserTests : PageTest
     await Page.GetByPlaceholder("password").ClickAsync();
     await Page.GetByPlaceholder("password").FillAsync("Test_user31");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
-    await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Blog Posts" })).ToBeVisibleAsync();
+    try
+    {
+      await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Blog Posts" })).ToBeVisibleAsync();
+      await Page.ScreenshotAsync(new() { Path = "screenshots/login_success.png" });
+    }
+    catch ( Exception e )
+    {
+      await Page.ScreenshotAsync(new() { Path = "screenshots/login_error.png" });
+      throw;
+    }
 
     // Add post
     await Page.Locator("li").Filter(new() { HasText = "user31 My Profile Dashboard" }).ClickAsync();
@@ -53,7 +63,16 @@ public class UserTests : PageTest
     await Page.GetByLabel("Content").ClickAsync();
     await Page.GetByLabel("Content").FillAsync("Test Content");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Submit" }).ClickAsync();
-    await Expect(Page.GetByText("Post created successfully")).ToBeVisibleAsync();
+    try
+    {
+      await Expect(Page.GetByText("Post created successfully")).ToBeVisibleAsync();
+      await Page.ScreenshotAsync(new() { Path = "screenshots/post_creation_success.png" });
+    }
+    catch ( Exception e )
+    {
+      await Page.ScreenshotAsync(new() { Path = "screenshots/post_creation_error.png" });
+      throw;
+    }
 
     // View post
     await Page.GetByRole(AriaRole.Link, new() { Name = "My First Test Post" }).ClickAsync();
@@ -64,9 +83,18 @@ public class UserTests : PageTest
     await Page.GetByLabel("Comment").ClickAsync();
     await Page.GetByLabel("Comment").FillAsync("TestComment");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Add Comment" }).ClickAsync();
-    await Expect(Page.GetByText("Comment added successfully")).ToBeVisibleAsync();
-    await Expect(Page.GetByRole(AriaRole.Main)).ToContainTextAsync("Test");
-    await Expect(Page.GetByRole(AriaRole.Main)).ToContainTextAsync("TestComment");
+    try
+    {
+      await Expect(Page.GetByText("Comment added successfully")).ToBeVisibleAsync();
+      await Expect(Page.GetByRole(AriaRole.Main)).ToContainTextAsync("Test");
+      await Expect(Page.GetByRole(AriaRole.Main)).ToContainTextAsync("TestComment");
+      await Page.ScreenshotAsync(new() { Path = "screenshots/comment_success.png" });
+    }
+    catch ( Exception e )
+    {
+      await Page.ScreenshotAsync(new() { Path = "screenshots/comment_error.png" });
+      throw;
+    }
 
     // Delete comment
     void PageDialogEventHandler(object sender, IDialog dialog)
@@ -88,8 +116,17 @@ public class UserTests : PageTest
     await Page.GetByPlaceholder("Please enter your first name.").ClickAsync();
     await Page.GetByPlaceholder("Please enter your first name.").FillAsync("Darius");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Save" }).ClickAsync();
-    await Expect(Page.GetByText("Your profile has been updated")).ToBeVisibleAsync();
-    await Expect(Page.GetByPlaceholder("Please enter your first name.")).ToHaveValueAsync("Darius");
+    try
+    {
+      await Expect(Page.GetByText("Your profile has been updated")).ToBeVisibleAsync();
+      await Expect(Page.GetByPlaceholder("Please enter your first name.")).ToHaveValueAsync("Darius");
+      await Page.ScreenshotAsync(new() { Path = "screenshots/profile_success.png" });
+    }
+    catch ( Exception e )
+    {
+      await Page.ScreenshotAsync(new() { Path = "screenshots/profile_error.png" });
+      throw;
+    }
 
     //Logout
     await Page.GetByRole(AriaRole.Button, new() { Name = "Logout" }).ClickAsync();

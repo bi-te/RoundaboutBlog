@@ -24,7 +24,6 @@ jobs:
 
     env:
       ConnectionStrings__dbConnection: "Host=localhost;Port=5432;Database=roundabout_db;Username=roundabout_db;Password=roundabout_password"
-      HEADED: 1
       EMAIL: 0
 
     steps:
@@ -48,7 +47,7 @@ jobs:
     - name: Ensure browsers are installed
       run: pwsh ./RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Test
-      run: xvfb-run dotnet test --no-build --verbosity minimal
+      run: dotnet test --no-build --verbosity minimal
     - name: Run code style analysis
       run: dotnet format --verify-no-changes --severity warn --verbosity diagnostic
       
