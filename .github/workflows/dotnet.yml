@@ -42,7 +42,7 @@ jobs:
     - name: Create db
       run: dotnet ef database update --project ./RoundaboutBlog
     - name: Run app
-      run: dotnet run --no-restore --no-build --project .\RoundaboutBlog\ 
+      run: dotnet run --no-restore --no-build --project ./RoundaboutBlog/RoundaboutBlog.csproj
     - name: Test
       run: dotnet test --no-build --verbosity minimal
     - name: Run code style analysis
