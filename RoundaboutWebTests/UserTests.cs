@@ -24,7 +24,7 @@ public class UserTests : PageTest
     await Page.GetByRole(AriaRole.Button, new() { Name = "Register" }).ClickAsync();
     try
     {
-      await Expect(Page.GetByText("Your registration has been")).ToBeVisibleAsync(); 
+      await Expect(Page.GetByText("Your registration has been")).ToBeVisibleAsync();
     }
     catch ( Exception e )
     {
@@ -32,7 +32,7 @@ public class UserTests : PageTest
       throw;
     }
   }
-  
+
   [Test, Order(2)]
   public async Task ComplexTest()
   {
@@ -108,7 +108,7 @@ public class UserTests : PageTest
     await Page.GetByPlaceholder("password").FillAsync("Test_user31");
     await Page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
     await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Blog Posts" })).ToBeVisibleAsync();
-    
+
     //Delete user
     await Page.GetByRole(AriaRole.Button, new() { Name = "user31" }).ClickAsync();
     await Page.GetByRole(AriaRole.Link, new() { Name = "My Profile" }).ClickAsync();

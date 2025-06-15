@@ -7,7 +7,7 @@ using RoundaboutBlog.Settings;
 
 namespace RoundaboutBlog.Services;
 
-public class DummyEmailSender: IEmailSender
+public class DummyEmailSender : IEmailSender
 {
   public DummyEmailSender(IOptions<SmtpSettings> smtpSettings)
   {

@@ -46,7 +46,7 @@ builder.Services.AddScoped<ICommentsService, CommentsService>();
 
 if ( builder.Configuration["EMAIL"] == "1" )
 {
-  builder.Services.AddTransient<IEmailSender, EmailSender>(); 
+  builder.Services.AddTransient<IEmailSender, EmailSender>();
   builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
 }
 else
