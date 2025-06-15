@@ -15,13 +15,18 @@
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">D:\Programming\IDEs\configs\Rider\system\resharper-host\temp\Rider\vAny\CoverageData\_RoundaboutBlog.-1195356174\Snapshot\snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=F1053ADD_002DD702_002D4833_002DA5BB_002D70F3E54E8D39/@EntryIndexedValue">ECC0DD36-BFE4-4170-A2C0-D3B91A70E122</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0f616b8c_002D8fa0_002D48fe_002Db959_002D2bbd21192abb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="LogInTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0f616b8c_002D8fa0_002D48fe_002Db959_002D2bbd21192abb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LogInTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::04B96B8C-E403-463E-A7A4-F0039BCDEA06::net9.0::RoundaboutWebTests.UserTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2373d0ec_002D0333_002D4933_002D9f2a_002Dc3e1b1559306/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="OnGetAsync_ExistingPost_ReturnsPageResult" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="D:\Programming\CSharpProjects\Web\Learning\RoundaboutBlog\RoundaboutTests" Presentation="&amp;lt;RoundaboutTests&amp;gt;" /&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="D:\Programming\CSharpProjects\Web\Learning\RoundaboutBlog\RoundaboutTests" Presentation="&amp;lt;RoundaboutTests&amp;gt;" /&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::04B96B8C-E403-463E-A7A4-F0039BCDEA06::net9.0::RoundaboutWebTests.UserTests&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
