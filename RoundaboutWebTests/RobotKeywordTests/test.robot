@@ -1,7 +1,7 @@
 ﻿*** Settings ***
 Documentation    User Web Tests
 Library    Browser
-Test Setup      New Browser    chromium    headless=False
+Test Setup      New Browser    chromium    headless=True
 Test Teardown   Close Browser
 Suite Teardown  Close Browser    ALL
 
