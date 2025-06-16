@@ -8,3 +8,4 @@
 **/.playwright
 
 /python_venv
+/RoundaboutWebTests/RobotKeywordTests/results
