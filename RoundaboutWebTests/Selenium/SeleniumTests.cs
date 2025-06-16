@@ -7,7 +7,6 @@ using NUnit.Framework;
 using System;
 using System.IO;
 
-[Parallelizable(ParallelScope.Self)]
 [TestFixture]
 [Category("Selenium")]
 public class SeleniumTests
@@ -126,7 +125,7 @@ public class SeleniumTests
     _driver.FindElement(By.ClassName("btn-danger")).Click();
 
     // // Edit profile
-    _driver.FindElement(By.Id("dropdownMenuButton")).Click();
+    _driver.FindElement(By.ClassName("dropdown-toggle")).Click();
     _driver.FindElement(By.LinkText("My Profile")).Click();
 
     var firstNameField = _driver.FindElement(By.CssSelector("input[placeholder='Please enter your first name.']"));

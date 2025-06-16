@@ -2,7 +2,6 @@
 
 namespace RoundaboutWebTests;
 
-[Parallelizable(ParallelScope.Self)]
 [TestFixture]
 [Category("Playwright")]
 public class UserTests : PageTest

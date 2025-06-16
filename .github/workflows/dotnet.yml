@@ -45,7 +45,7 @@ jobs:
     - name: Ensure browsers are installed
       run: pwsh ./RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Test
-      run: dotnet test --no-build --verbosity minimal
+      run: xvfb-run  dotnet test --no-build --verbosity minimal
     - name: Run code style analysis
       run: dotnet format --verify-no-changes --severity warn --verbosity diagnostic
 
