@@ -18,7 +18,6 @@ public class SeleniumTests
   public void Setup()
   {
     _driver = new ChromeDriver();
-    _driver.Manage().Window.Maximize();
     wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
     Directory.CreateDirectory(" selenium_screenshots");
   }
