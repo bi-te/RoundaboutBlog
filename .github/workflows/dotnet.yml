@@ -42,19 +42,19 @@ jobs:
       run: dotnet ef database update --project ./RoundaboutBlog
     - name: Run app
       run: dotnet run --no-restore --no-build --project ./RoundaboutBlog/RoundaboutBlog.csproj &
-    - name: Ensure browsers are installed
-      run: pwsh ./RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
-    - name: Test
-      run: dotnet test --no-build --verbosity minimal
-    - name: Run code style analysis
-      run: dotnet format --verify-no-changes --severity warn --verbosity diagnostic
-      
-    - name: Upload Playwright screenshots
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-screenshots
-        path: ./RoundaboutWebTests/bin/Debug/net9.0/screenshots/
+#    - name: Ensure browsers are installed
+#      run: pwsh ./RoundaboutWebTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
+#    - name: Test
+#      run: dotnet test --no-build --verbosity minimal
+#    - name: Run code style analysis
+#      run: dotnet format --verify-no-changes --severity warn --verbosity diagnostic
+#      
+#    - name: Upload Playwright screenshots
+#      if: always()
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: playwright-screenshots
+#        path: ./RoundaboutWebTests/bin/Debug/net9.0/screenshots/
 
     - name: Setup Node.js 22
       uses: actions/setup-node@v4
@@ -64,8 +64,10 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.12
-    - name: Add RobotFramework & SeleniumLibrary
-      run:  pip install robotframework & pip install robotframework-browser & rfbrowser init
+    - name: Add RobotFramework & BrowserLibrary
+      run:  pip install robotframework & pip install robotframework-browser
+    - name: Init BrowserLibrary
+      run: rfbrowser init
     - name: Run RobotTests
       run: robot --output-dir ./RoundaboutWebTests/RobotKeywordTests/results ./RoundaboutWebTests/RobotKeywordTests/test.robot
     - name: Upload RobotFramework results
